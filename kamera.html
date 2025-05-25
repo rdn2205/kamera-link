@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Akses Kamera</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    video {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    #info {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Akses Kamera</h2>
+  <video id="camera" autoplay playsinline></video>
+  <div id="info">Meminta akses kamera...</div>
+
+  <script>
+    (async function() {
+      const video = document.getElementById('camera');
+      const info = document.getElementById('info');
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        info.textContent = 'Kamera berhasil diakses.';
+      } catch (err) {
+        info.textContent = 'Gagal mengakses kamera: ' + err.message;
+      }
+    })();
+  </script>
+</body>
+</html>
